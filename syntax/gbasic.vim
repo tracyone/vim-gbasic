@@ -11,7 +11,8 @@ let b:current_syntax="gbasic"
 
 " highlight keywords of gbasic
 
-syntax match gbasicKeyword "\v\cif|elseif|sub|function"
+syntax match gbasicKeyword "\v\c<if>|<elseif>|<sub>|<function>|<dimi>|<dims>|<return>|<byref>"
+syntax match gbasicKeyword "\v\c<end *(if|function|sub)>"
 
 highlight def link gbasicKeyword keyword
 
@@ -21,9 +22,14 @@ syntax region gbasicComment start="/\*"  end="\*/"
 syntax match gbasicComment "\v'.*$"
 
 highlight def link gbasicComment Comment
-"
+
 " highlight number of gbasic
-"
+
+" highlight preprocessor of gbasic
+syntax match gbasicPreProc "\v^ *#include +"
+syntax match gbasicPreProc "\v^ *#define +"
+highlight def link gbasicPreProc PreProc
+
 " highlight quote string of gbasic
 syntax region gbasicString start=/\v"/ skip=/\v\\./ end=/\v"/
 highlight def link gbasicString String
