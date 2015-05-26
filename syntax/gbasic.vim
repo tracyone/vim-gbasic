@@ -11,7 +11,7 @@ let b:current_syntax="gbasic"
 
 " highlight keywords of gbasic
 
-syntax match gbasicKeyword "\v\c<if>|<elseif>|<sub>|<function>|<dimi>|<dims>|<return>|<byref>"
+syntax match gbasicKeyword "\v\c<if>|<elseif>|<sub>|<function>|<dimi>|<dims>|<return>|<byref>|<for>|<else>|<then>"
 syntax match gbasicKeyword "\v\c<end *(if|function|sub)>"
 
 highlight def link gbasicKeyword keyword
