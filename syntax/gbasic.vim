@@ -1,7 +1,7 @@
 " keyword Vim syntax file
 " Language:	    gbasic
 " Maintainer:	tracyone <tracyone@live.cn>
-" Last Change:	2015-05-26/14:45:28
+" Last Change:	2015-05-27/22:32:19
 
 if exists("b:current_syntax")
     finish
@@ -41,11 +41,17 @@ syntax match gbasicBulidin "\v\c<xmlclose>|<xmlfetch>|<xmlgotofirst>|<xmlparse>|
 highlight def link gbasicBulidin Function
 
 " highlight comment of gbasic
-"
-syntax region gbasicComment start="/\*"  end="\*/"
-syntax match gbasicComment "\v'.*$"
 
+" important comment in single quote comment
+syntax match gbasicBold "\v\*\*\* +.*$" contained
+
+" regluar comment
+syntax region gbasicComment start="/\*"  end="\*/"
+syntax match gbasicComment "\v'.*$" contains=gbasicBold
+
+highlight def link gbasicBold Tag
 highlight def link gbasicComment Comment
+
 
 " highlight number of gbasic
 
