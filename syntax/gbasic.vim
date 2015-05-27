@@ -10,7 +10,8 @@ endif
 let b:current_syntax="gbasic"
 
 " highlight keywords of gbasic
-syntax match gbasicKeyword "\v\c<if>|<elseif>|<sub>|<function>|<dimi>|<dims>|<return>|<byref>|<for>|<else>|<then>|<iff>"
+syntax match gbasicKeyword "\v\c<if>|<elseif>|<sub>|<function>|<dimi>|<dims>|<return>|<byref>|<for>|<else>|<then>|<iff>|<to>"
+syntax match gbasicKeyword "\v\c<next>"
 syntax match gbasicKeyword "\v\c<end *(if|function|sub)>"
 
 highlight def link gbasicKeyword keyword
@@ -48,6 +49,7 @@ syntax match gbasicBold "\v\*\*\* +.*$" contained
 " regluar comment
 syntax region gbasicComment start="/\*"  end="\*/"
 syntax match gbasicComment "\v'.*$" contains=gbasicBold
+syntax match gbasicComment "\v//.*$" contains=gbasicBold
 
 highlight def link gbasicBold Tag
 highlight def link gbasicComment Comment
