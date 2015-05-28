@@ -1,3 +1,8 @@
+let s:scomment = 0
+let s:comment_indent_level = 0
+
+let s:ssub = 0
+
 function! s:IndentLevel(lnum)
     return indent(a:lnum)/&shiftwidth
 endfunction
@@ -6,7 +11,10 @@ function! s:NextNonBlankLine(lnum)
     let numlines = line('$')
     let current = a:lnum + 1
     while current <= numlines
-        if getline(current) =~? '\v\S'
+        let tmp2=getline(current)
+        if tmp2 =~? '\v.*\*\/$'
+            return current
+        elseif tmp2 =~? '\v\S'
             return current
         endif
         let current += 1
@@ -15,18 +23,41 @@ function! s:NextNonBlankLine(lnum)
 endfunction
 
 function! Getbasicfold(lnum)
-    if getline(a:lnum) =~? '\v^\s*$'
+    let tmp = getline(a:lnum)
+    if  tmp =~? '\v^\s*$'
         return '-1'
+    elseif tmp =~? '\v^.*\/\*.*$' 
+        let s:scomment = a:lnum
+        if   s:scomment > 2
+            let s:comment_indent_level = <SID>IndentLevel(s:scomment-1)+1
+        else
+            let s:comment_indent_level = 1
+        endif
+        return ">".s:comment_indent_level
+    elseif tmp =~? '\v.*\*\/$'
+        let tmp = s:comment_indent_level
+        let s:scomment = 0
+        return "<".tmp
+    elseif tmp =~? '\v\c^\s*(<sub>|<function>)'
+        let s:ssub = a:lnum
+        return ">1"
+    elseif tmp =~? '\v\c^\s*<end\s*(sub|function)>'
+        let s:ssub = 0
+        return "<1"
     endif
+
     let this_indent = <SID>IndentLevel(a:lnum)
-    let next_indent = <SID>IndentLevel(<SID>NextNonBlankLine(a:lnum))
-    if next_indent == this_indent
-        return this_indent
-    elseif next_indent < this_indent
-        return this_indent
-    elseif next_indent > this_indent
-        return '>' . next_indent
+
+    if  a:lnum > s:scomment && s:scomment != 0
+        return s:comment_indent_level
     endif
+    if  a:lnum > s:ssub && s:ssub != 0
+        if  this_indent > 0
+            return this_indent
+        endif
+        return '1'
+    endif
+
 endfunction
 
 function! s:NextSection(type, backwards,visual)
