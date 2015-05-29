@@ -1,3 +1,13 @@
+
+- [A plugin for gbasic language](#A_plugin_for_gbasic_language)
+- [功能特点](#功能特点)
+- [安装](#安装)
+	- [vundle](#vundle)
+	- [vim-plug](#vim-plug)
+- [截图](#截图)
+- [TODO](#TODO)
+- [致谢](#致谢)
+
 # A plugin for gbasic language
 
 `basic`语言变种**gbasic**，用于GoDB架构中，目前唯一知道的，使用这种语言的就是TI IPNC的网页。开发基于`GoDB`架构的网页，使用的是`gStudio`集成环境，但是这个ide非常不好用，搜索什么都非常麻烦，于是乎只能用vim来编辑，但是vim只认`basic`不认`gbasic`这种奇葩语言,所以语法高亮惨不忍睹。
@@ -16,7 +26,6 @@
 - 提供正确的折叠;
 - 准确section移动，也就是按下`]]`,`[[`,`[]`和`][`的动作;
 - `matchit`，扩展`%`键;
-- 一些外部命令用于工程相关文件的生成。
 
 # 安装
 
@@ -36,15 +45,34 @@ Bundle "tracyone/gbasic"
 Plug "tracyone/gbasic"
 ```
 
-# 配置
+# 截图
 
-## 选项
+**语法高亮**
 
-## 快捷键
+![syntax1](https://cloud.githubusercontent.com/assets/4246425/7880998/4856d2de-0631-11e5-96a2-6bc1871f90c4.png)
 
-## 配置示例
+**折叠**
+
+![fold](https://cloud.githubusercontent.com/assets/4246425/7881044/a489fa72-0631-11e5-81b9-5cc1d929f9e7.png)
+
+**matchit**
+
+![matchit](https://cloud.githubusercontent.com/assets/4246425/7881178/ba9d973c-0632-11e5-8171-d47751decb43.gif)
+
+**section移动**
+
+![section](https://cloud.githubusercontent.com/assets/4246425/7881242/6c02a0bc-0633-11e5-8fbf-df9d1f422dfb.gif)
+
+#TODO
+
+- 修改文件时，某些情况下折叠不能正确显示
+- 语法高亮似乎由于正则写得比较差还是内置函数太多导致偶尔导致变慢
+- 和`basic`语言的源文件一样的后缀(`*.bas`)，应该如何选择来决定`filetype`类型
+- 实在想不出这种语言的插件还应该添加什么功能了，编译器相关又不行（没有命令行接口）
 
 # 致谢
+
+感谢发明正则表达式感谢创造Vim编辑器的人们......
 
 
 
