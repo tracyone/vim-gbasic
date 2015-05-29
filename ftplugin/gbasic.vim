@@ -92,3 +92,9 @@ vnoremap <script> <buffer> <silent> ]] :call <SID>NextSection(1,1,1)<cr>
 vnoremap <script> <buffer> <silent> [] :call <SID>NextSection(2,0,1)<cr>
 vnoremap <script> <buffer> <silent> ][ :call <SID>NextSection(2,1,1)<cr>
 
+"matchit plugin
+let b:match_words = '\<if\>:\<else\s*if\>:\<else\>:\<end\s*if\>,'
+            \ . '\<sub\>:\<end\s*sub\>,'
+            \ . '\<function>\>:\<end\s*function\>,'
+            \ . '\<for>\>:\<break>\>:\<continue>\>:\<next\>,'
+            \ . '\<while>\>:\<break>\>:\<continue>\>:\<wend\>'
