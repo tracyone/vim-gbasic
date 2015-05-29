@@ -26,6 +26,7 @@
 - 提供正确的折叠;
 - 准确section移动，也就是按下`]]`,`[[`,`[]`和`][`的动作;
 - `matchit`，扩展`%`键;
+- 提供准确的缩进，也就是v模式按下`=`时自动重排代码缩进，以及输入特定关键字自动缩进
 
 # 安装
 
@@ -62,6 +63,9 @@ Plug "tracyone/gbasic"
 **section移动**
 
 ![section](https://cloud.githubusercontent.com/assets/4246425/7881242/6c02a0bc-0633-11e5-8fbf-df9d1f422dfb.gif)
+
+**准确的缩进**
+
 
 #TODO
 

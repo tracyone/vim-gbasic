@@ -26,7 +26,7 @@ function s:buffer_shiftwidth()
     return &shiftwidth
 endfunction
 
-let s:enable_dbg = 1
+let s:enable_dbg = 0
 function! s:Debug(string)
     if s:enable_dbg == 1
         echom a:string
