@@ -45,13 +45,15 @@ highlight def link gbasicBulidin Function
 
 " important comment in single quote comment
 syntax match gbasicBold "\v\*\*\* +.*$" contained
+syntax match gbasicTodo "\v<TODO>" contained
 
 " regluar comment
 syntax region gbasicComment start="/\*"  end="\*/"
-syntax match gbasicComment "\v'.*$" contains=gbasicBold
-syntax match gbasicComment "\v//.*$" contains=gbasicBold
+syntax match gbasicComment "\v'.*$" contains=gbasicBold,gbasicTodo
+syntax match gbasicComment "\v//.*$" contains=gbasicBold,gbasicTodo
 
 highlight def link gbasicBold Tag
+highlight def link gbasicTodo Todo
 highlight def link gbasicComment Comment
 
 
