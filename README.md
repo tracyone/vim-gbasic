@@ -5,7 +5,7 @@
 	- [vundle](#vundle)
 	- [vim-plug](#vim-plug)
 - [截图](#截图)
-- [TODO](#TODO)
+- [TODO](#todo)
 - [致谢](#致谢)
 
 # A plugin for gbasic language
