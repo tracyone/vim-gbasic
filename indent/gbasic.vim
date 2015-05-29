@@ -11,8 +11,8 @@ let b:did_indent = 1
 
 "定义触发缩进的按键或者输入
 setlocal indentexpr=GetGbasicIndent()
-setlocal indentkeys=!^F,o,O,0),=~sub,=~function,=~if,=~endif,=~for,=~else
-setlocal indentkeys+==~elseif
+setlocal indentkeys=!^F,o,O,0),=~elseif,=~endif,=~else,=~while
+setlocal indentkeys+==~wend,=~next,=~end,=~sub,=~function,=~for,=~if
 "setlocal nosmartindent
 
 if exists("*GetGbasicIndent")
@@ -70,7 +70,7 @@ function! GetGbasicIndent()
     let line = getline(lnum)
     "如果前一行匹配到分支，并且非终止，那么说明当前行在分支内部，所以要比前一行增加缩进
     if line =~ '\c^\s*\%(if\|then\|else\|elseif\|while\|for\)\>' 
-        if line !~ '\v\c^\s*<end\s=(if>|wend>|next>)'
+        if line !~ '\v\c^\s*(<end\s=if>|wend>|next>)'
             let ind += s:indent_value('default')
             call s:Debug('add')
         endif
@@ -87,18 +87,19 @@ function! GetGbasicIndent()
         call s:Debug("p line has _")
         if pnum == 0 || !s:is_continuation_line(getline(pnum))
             "如果前前行不是说明前行是首个出现的过行符号的，
+            let tmp2 = indent(lnum)
             if  line =~ '\v\c^\s*dims>\s+\w+\$\(\d+\)'
-                let colno = match(line,'\v\(',0,2)
+                let colno = match(line,'\v[(]',0,2)
             elseif line =~ '\v\c^\s*function>\s*\w+\$*\s*\('
                 let colno = match(line,'\v[(]')
+                let tmp2 = tmp2?tmp2+1:1
+            elseif line =~ '\v^\s*\w+\$'
+                let colno = match(line,'\v["]')
             else
                 let colno = match(line,'\v[\s]')
+                let tmp2 -= 1
             endif
             if colno != -1
-                let tmp2 = indent(lnum)
-                if  tmp2 == 0
-                    let tmp2 = 1
-                endif
                 let ind = colno+tmp2
                 call s:Debug("match".colno."ind".ind)
             endif
@@ -107,13 +108,17 @@ function! GetGbasicIndent()
     elseif pnum != 0 && s:is_continuation_line(getline(pnum))
         "如果前前一行是..
         let tmpnum = s:find_continued_lnum(pnum)
-        let ind = indent(tmpnum)
+        if  getline(tmpnum) =~ '\v\c^\s*(<sub>|<function>)\s+'
+            let ind = s:buffer_shiftwidth()
+        else
+            let ind = indent(tmpnum)
+        endif
         call s:Debug( "pp line has _:".ind )
     endif
 
     let pine = line
     let line = getline(v:lnum)
-    if line =~ '\v\c^\s*(<then>|<to>|<else>|<elseif>|<next>)' || line =~ '\v\c^\s*<end\s=(sub>|function>|if)'
+    if line =~ '\v\c^\s*(<then>|<to>|<else>|<elseif>|<next>)' || line =~ '\v\c^\s*(<end\s=(sub>|function>|if)|wend)'
         if  ind-s:indent_value('default') >= 0 
             let ind -= s:indent_value('default')
         endif
