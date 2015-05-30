@@ -66,6 +66,7 @@ Plug "tracyone/gbasic"
 
 **准确的缩进**
 
+![indent](https://cloud.githubusercontent.com/assets/4246425/7895669/3300aeea-06cd-11e5-89ed-bcbb86fc883d.gif)
 
 #TODO
 
