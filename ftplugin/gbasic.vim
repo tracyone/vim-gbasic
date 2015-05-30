@@ -93,8 +93,8 @@ vnoremap <script> <buffer> <silent> [] :call <SID>NextSection(2,0,1)<cr>
 vnoremap <script> <buffer> <silent> ][ :call <SID>NextSection(2,1,1)<cr>
 
 "matchit plugin
-let b:match_words = '\<if\>:\<else\s*if\>:\<else\>:\<end\s*if\>,'
-            \ . '\<sub\>:\<end\s*sub\>,'
-            \ . '\<function>\>:\<end\s*function\>,'
-            \ . '\<for>\>:\<break>\>:\<continue>\>:\<next\>,'
-            \ . '\<while>\>:\<break>\>:\<continue>\>:\<wend\>'
+let b:match_words = '\c\<if\>:\c\<else\s*if\>:\c\<else\>:\c\<end\s*if\>,'
+            \ . '\c\<sub\>:\c\<end\s*sub\>,'
+            \ . '\c\<function\>:\c\<end\s*function\>,'
+            \ . '\c\<for\>:\c\<break\>:\c\<continue\>:\c\<next\>,'
+            \ . '\c\<while\>:\c\<break\>:\c\<continue\>:\c\<wend\>'
